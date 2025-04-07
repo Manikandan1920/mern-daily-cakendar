@@ -1,0 +1,74 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Calendar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f3;
+      padding: 20px;
+    }
+
+    .calendar {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .calendar-header {
+      background: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.4rem;
+    }
+
+    .hour-slot {
+      padding: 12px 16px;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hour-slot:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .time {
+      font-weight: bold;
+    }
+
+    .event {
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="calendar">
+    <div class="calendar-header" id="calendar-date"></div>
+    <div id="calendar-body"></div>
+  </div>
+
+  <script>
+    const calendarBody = document.getElementById("calendar-body");
+    const calendarDate = document.getElementById("calendar-date");
+
+    const today = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    calendarDate.textContent = today.toLocaleDateString(undefined, options);
+
+    for (let hour = 6; hour <= 22; hour++) {
+      const hourDisplay = `${hour % 12 || 12} ${hour < 12 ? 'AM' : 'PM'}`;
+      const slot = document.createElement('div');
+      slot.classList.add('hour-slot');
+      slot.innerHTML = `<div class="time">${hourDisplay}</div><div class="event">Free</div>`;
+      calendarBody.appendChild(slot);
+    }
+  </script>
+</body>
+</html>
